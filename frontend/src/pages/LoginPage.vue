@@ -6,7 +6,7 @@
                 <a href="/">
                     <div class="flex">
                         <Bot :size="30" />
-                        <ManusLogoTextIcon />
+                        <AnkerLogoTextIcon />
                     </div>
                 </a>
             </div>
@@ -19,7 +19,7 @@
                         <Bot :size="80" />
                     </div>
                     <h1 class="text-[20px] font-bold text-center text-[var(--text-primary)] max-sm:text-[18px]">
-                        {{ isRegistering ? t('Register to Manus') : t('Login to Manus') }}
+                        {{ isRegistering ? t('Register to Anker') : t('Login to Anker') }}
                     </h1>
                 </div>
             </div>
@@ -180,7 +180,7 @@ import { ref, computed, onMounted, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { Bot, Eye, EyeOff, LoaderCircle } from 'lucide-vue-next'
-import ManusLogoTextIcon from '@/components/icons/ManusLogoTextIcon.vue'
+import AnkerLogoTextIcon from '@/components/icons/AnkerLogoTextIcon.vue'
 import { useAuth } from '@/api'
 import { validateUserInput } from '@/utils/auth'
 import { showErrorToast, showSuccessToast } from '@/utils/toast'
@@ -312,7 +312,7 @@ const handleSubmit = async () => {
         password: formData.value.password
       })
       // Registration success message
-      showSuccessToast(t('Registration successful! Welcome to Manus'))
+      showSuccessToast(t('Registration successful! Welcome to Anker'))
     } else {
       await login({
         email: formData.value.email,

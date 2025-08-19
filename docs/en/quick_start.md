@@ -33,19 +33,19 @@ Deploy using Docker Compose, you need to modify the `API_BASE` and `API_KEY` env
 ```yaml
 services:
   frontend:
-    image: simpleyyt/manus-frontend
+    image: simpleyyt/anker-frontend
     ports:
       - "5173:80"
     depends_on:
       - backend
     restart: unless-stopped
     networks:
-      - manus-network
+      - anker-network
     environment:
       - BACKEND_URL=http://backend:8000
 
   backend:
-    image: simpleyyt/manus-backend
+    image: simpleyyt/anker-backend
     depends_on:
       - sandbox
     restart: unless-stopped
@@ -53,7 +53,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       #- ./mcp.json:/etc/mcp.json # Mount MCP servers directory
     networks:
-      - manus-network
+      - anker-network
     environment:
       # OpenAI API base URL
       - API_BASE=https://api.openai.com/v1
@@ -69,7 +69,7 @@ services:
       # MongoDB connection URI
       #- MONGODB_URI=mongodb://mongodb:27017
       # MongoDB database name
-      #- MONGODB_DATABASE=manus
+      #- MONGODB_DATABASE=anker
       # MongoDB username (optional)
       #- MONGODB_USERNAME=
       # MongoDB password (optional)
@@ -87,13 +87,13 @@ services:
       # Sandbox server address (optional)
       #- SANDBOX_ADDRESS=
       # Docker image used for the sandbox
-      - SANDBOX_IMAGE=simpleyyt/manus-sandbox
+      - SANDBOX_IMAGE=simpleyyt/anker-sandbox
       # Prefix for sandbox container names
       - SANDBOX_NAME_PREFIX=sandbox
       # Time-to-live for sandbox containers in minutes
       - SANDBOX_TTL_MINUTES=30
       # Docker network for sandbox containers
-      - SANDBOX_NETWORK=manus-network
+      - SANDBOX_NETWORK=anker-network
       # Chrome browser arguments for sandbox (optional)
       #- SANDBOX_CHROME_ARGS=
       # HTTPS proxy for sandbox (optional)
@@ -137,11 +137,11 @@ services:
       - LOG_LEVEL=INFO
 
   sandbox:
-    image: simpleyyt/manus-sandbox
+    image: simpleyyt/anker-sandbox
     command: /bin/sh -c "exit 0"  # prevent sandbox from starting, ensure image is pulled
     restart: "no"
     networks:
-      - manus-network
+      - anker-network
 
   mongodb:
     image: mongo:7.0
@@ -151,21 +151,21 @@ services:
     #ports:
     #  - "27017:27017"
     networks:
-      - manus-network
+      - anker-network
 
   redis:
     image: redis:7.0
     restart: unless-stopped
     networks:
-      - manus-network
+      - anker-network
 
 volumes:
   mongodb_data:
-    name: manus-mongodb-data
+    name: anker-mongodb-data
 
 networks:
-  manus-network:
-    name: manus-network
+  anker-network:
+    name: anker-network
     driver: bridge
 ```
 <!-- /docker-compose-example.yml -->
@@ -178,4 +178,4 @@ docker compose up -d
 
 > Note: If you see `sandbox-1 exited with code 0`, this is normal - it ensures the sandbox image is successfully pulled locally.
 
-Open your browser and visit <http://localhost:5173> to access Manus. 
+Open your browser and visit <http://localhost:5173> to access Anker. 

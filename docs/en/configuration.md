@@ -22,7 +22,7 @@
 | Configuration | Default Value | Required | Description |
 |---------------|---------------|----------|-------------|
 | `MONGODB_URI` | `mongodb://mongodb:27017` | No | MongoDB connection string |
-| `MONGODB_DATABASE` | `manus` | No | Database name |
+| `MONGODB_DATABASE` | `anker` | No | Database name |
 | `MONGODB_USERNAME` | - | No | MongoDB username |
 | `MONGODB_PASSWORD` | - | No | MongoDB password |
 
@@ -44,10 +44,10 @@
 | Configuration | Default Value | Required | Description |
 |---------------|---------------|----------|-------------|
 | `SANDBOX_ADDRESS` | - | No | Sandbox server address |
-| `SANDBOX_IMAGE` | `simpleyyt/manus-sandbox` | No | Docker sandbox image name |
+| `SANDBOX_IMAGE` | `simpleyyt/anker-sandbox` | No | Docker sandbox image name |
 | `SANDBOX_NAME_PREFIX` | `sandbox` | No | Sandbox container name prefix |
 | `SANDBOX_TTL_MINUTES` | `30` | No | Sandbox time-to-live in minutes |
-| `SANDBOX_NETWORK` | `manus-network` | No | Docker network name |
+| `SANDBOX_NETWORK` | `anker-network` | No | Docker network name |
 | `SANDBOX_CHROME_ARGS` | - | No | Chrome browser startup arguments |
 | `SANDBOX_HTTPS_PROXY` | - | No | HTTPS proxy settings |
 | `SANDBOX_HTTP_PROXY` | - | No | HTTP proxy settings |
