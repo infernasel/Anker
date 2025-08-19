@@ -1,14 +1,14 @@
-# AI Manus
+# AI Anker
 
-English | [中文](README_zh.md) | [Documents](https://docs.ai-manus.com/#/en/)
+English | [Русский](README_ru.md) | [Documents](https://docs.ai-anker.com/#/en/)
 
-[![GitHub stars](https://img.shields.io/github/stars/simpleyyt/ai-manus?style=social)](https://github.com/simpleyyt/ai-manus/stargazers)
+[![GitHub stars](https://img.shields.io/github/stars/simpleyyt/ai-anker?style=social)](https://github.com/simpleyyt/ai-anker/stargazers)
 &ensp;
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-AI Manus is a general-purpose AI Agent system that supports running various tools and operations in a sandbox environment.
+AI Anker is a general-purpose AI Agent system that supports running various tools and operations in a sandbox environment.
 
-Enjoy your own agent with AI Manus!
+Enjoy your own agent with AI Anker!
 
 👏 Join [QQ Group(1005477581)](https://qun.qq.com/universal-share/share?ac=1&authKey=p4X3Da5iMpR4liAenxwvhs7IValPKiCFtUevRlJouz9qSTSZsMnPJc3hzsJjgQYv&busi_data=eyJncm91cENvZGUiOiIxMDA1NDc3NTgxIiwidG9rZW4iOiJNZmUrTmQ0UzNDZDNqNDFVdjVPS1VCRkJGRWVlV0R3RFJSRVFoZDAwRjFDeUdUM0t6aUIyczlVdzRjV1BYN09IIiwidWluIjoiMzQyMjExODE1In0%3D&data=C3B-E6BlEbailV32co77iXL5vxPIhtD9y_itWLSq50hKqosO_55_isOZym2Faaq4hs9-517tUY8GSWaDwPom-A&svctype=4&tempid=h5_group_info)
 
@@ -87,19 +87,19 @@ Docker Compose is recommended for deployment:
 ```yaml
 services:
   frontend:
-    image: simpleyyt/manus-frontend
+    image: simpleyyt/anker-frontend
     ports:
       - "5173:80"
     depends_on:
       - backend
     restart: unless-stopped
     networks:
-      - manus-network
+      - anker-network
     environment:
       - BACKEND_URL=http://backend:8000
 
   backend:
-    image: simpleyyt/manus-backend
+    image: simpleyyt/anker-backend
     depends_on:
       - sandbox
     restart: unless-stopped
@@ -107,7 +107,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       #- ./mcp.json:/etc/mcp.json # Mount MCP servers directory
     networks:
-      - manus-network
+      - anker-network
     environment:
       # OpenAI API base URL
       - API_BASE=https://api.openai.com/v1
@@ -123,7 +123,7 @@ services:
       # MongoDB connection URI
       #- MONGODB_URI=mongodb://mongodb:27017
       # MongoDB database name
-      #- MONGODB_DATABASE=manus
+      #- MONGODB_DATABASE=anker
       # MongoDB username (optional)
       #- MONGODB_USERNAME=
       # MongoDB password (optional)
@@ -141,13 +141,13 @@ services:
       # Sandbox server address (optional)
       #- SANDBOX_ADDRESS=
       # Docker image used for the sandbox
-      - SANDBOX_IMAGE=simpleyyt/manus-sandbox
+      - SANDBOX_IMAGE=simpleyyt/anker-sandbox
       # Prefix for sandbox container names
       - SANDBOX_NAME_PREFIX=sandbox
       # Time-to-live for sandbox containers in minutes
       - SANDBOX_TTL_MINUTES=30
       # Docker network for sandbox containers
-      - SANDBOX_NETWORK=manus-network
+      - SANDBOX_NETWORK=anker-network
       # Chrome browser arguments for sandbox (optional)
       #- SANDBOX_CHROME_ARGS=
       # HTTPS proxy for sandbox (optional)
@@ -191,11 +191,11 @@ services:
       - LOG_LEVEL=INFO
 
   sandbox:
-    image: simpleyyt/manus-sandbox
+    image: simpleyyt/anker-sandbox
     command: /bin/sh -c "exit 0"  # prevent sandbox from starting, ensure image is pulled
     restart: "no"
     networks:
-      - manus-network
+      - anker-network
 
   mongodb:
     image: mongo:7.0
@@ -205,21 +205,21 @@ services:
     #ports:
     #  - "27017:27017"
     networks:
-      - manus-network
+      - anker-network
 
   redis:
     image: redis:7.0
     restart: unless-stopped
     networks:
-      - manus-network
+      - anker-network
 
 volumes:
   mongodb_data:
-    name: manus-mongodb-data
+    name: anker-mongodb-data
 
 networks:
-  manus-network:
-    name: manus-network
+  anker-network:
+    name: anker-network
     driver: bridge
 ```
 <!-- /docker-compose-example.yml -->
@@ -232,7 +232,7 @@ docker compose up -d
 
 > Note: If you see `sandbox-1 exited with code 0`, this is normal, as it ensures the sandbox image is successfully pulled locally.
 
-Open your browser and visit <http://localhost:5173> to access Manus.
+Open your browser and visit <http://localhost:5173> to access Anker.
 
 ## Development Guide
 
@@ -240,16 +240,16 @@ Open your browser and visit <http://localhost:5173> to access Manus.
 
 This project consists of three independent sub-projects:
 
-* `frontend`: manus frontend
-* `backend`: Manus backend
-* `sandbox`: Manus sandbox
+* `frontend`: anker frontend
+* `backend`: Anker backend
+* `sandbox`: Anker sandbox
 
 ### Environment Setup
 
 1. Download the project:
 ```bash
-git clone https://github.com/simpleyyt/ai-manus.git
-cd ai-manus
+git clone https://github.com/simpleyyt/ai-anker.git
+cd ai-anker
 ```
 
 2. Copy the configuration file:
@@ -272,7 +272,7 @@ MAX_TOKENS=2000
 
 # MongoDB configuration
 #MONGODB_URI=mongodb://mongodb:27017
-#MONGODB_DATABASE=manus
+#MONGODB_DATABASE=anker
 #MONGODB_USERNAME=
 #MONGODB_PASSWORD=
 
@@ -284,10 +284,10 @@ MAX_TOKENS=2000
 
 # Sandbox configuration
 #SANDBOX_ADDRESS=
-SANDBOX_IMAGE=simpleyyt/manus-sandbox
+SANDBOX_IMAGE=simpleyyt/anker-sandbox
 SANDBOX_NAME_PREFIX=sandbox
 SANDBOX_TTL_MINUTES=30
-SANDBOX_NETWORK=manus-network
+SANDBOX_NETWORK=anker-network
 #SANDBOX_CHROME_ARGS=
 #SANDBOX_HTTPS_PROXY=
 #SANDBOX_HTTP_PROXY=

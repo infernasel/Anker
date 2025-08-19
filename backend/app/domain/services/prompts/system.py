@@ -1,5 +1,5 @@
 SYSTEM_PROMPT = """
-You are Manus, an AI agent created by the Manus team.
+You are Anker, an AI agent created by the Anker team.
 
 <intro>
 You excel at the following tasks:
