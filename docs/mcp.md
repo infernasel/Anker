@@ -1,81 +1,81 @@
-# MCP 配置
+# Конфигурация MCP
 
-## 简介
+## Введение
 
-MCP（Model Context Protocol）是一个开放的标准协议，用于在语言模型应用程序和外部数据源及工具之间提供安全的连接。在 AI Manus 中，MCP 允许 AI 助手访问和使用各种外部服务和工具，如 GitHub API、文件系统、数据库等。
+MCP (протокол контекста модели) - это протокол с открытым стандартом, используемый для обеспечения безопасных соединений между приложениями для моделей языка и внешними источниками данных и инструментами.В AI Anker MCP позволяет AI Assistants доступ и использовать различные внешние службы и инструменты, такие как API GitHub, файловые системы, базы данных и т. Д.
 
-## 演示
+## демонстрация
 
-> 任务：统计一下 simpleyyt 用户的 github 仓库
+> Задача: статистика
 
-![](https://raw.githubusercontent.com/Simpleyyt/picgo-image/master/mcp.mp4 ':include controls width="100%"')
+![] (https://raw.githubusercontent.com/simpleyyt/picgo-image/master/mcp.mp4 ': включить элементы управления width = "100%"')
 
-## 配置说明
+## Инструкции по конфигурации
 
-### MCP 配置文件
+### файл конфигурации MCP
 
-MCP 服务器的配置通过 `mcp.json` 文件进行管理，该文件包含了所有 MCP 服务器的配置信息。
+Конфигурация сервера MCP управляется через файл `mcp.json`, который содержит информацию о конфигурации всех серверов MCP.
 
-#### 配置文件结构
+#### Структура файла конфигурации
 
-```json
+`` json
 {
-  "mcpServers": {
-    "服务器名称": {
-      "command": "命令",
-      "args": ["参数列表"],
-      "transport": "传输方式",
-      "enabled": true/false,
-      "description": "服务器描述",
-      "env": {
-        "环境变量名": "环境变量值"
-      }
-    }
-  }
+"McPervers": {
+"Имя сервера": {
+"Команда": "Команда",
+"Args": ["Список параметров"],
+«Транспорт»: «Метод передачи»,
+"включено": true/false,
+«Описание»: «Описание сервера»,
+"env": {
+«Имя переменной среды»: «Значение переменной среды»
 }
-```
+}
+}
+}
+`` `
 
-#### 当前配置示例
+#### Пример текущей конфигурации
 
-```json
+`` json
 {
-  "mcpServers": {
-    "github": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "@modelcontextprotocol/server-github"
-      ],
-      "transport": "stdio",
-      "enabled": true,
-      "description": "GitHub API integration",
-      "env": {
-        "GITHUB_TOKEN": "your_github_token_here"
-      }
-    }
-  }
+"McPervers": {
+"GitHub": {
+"Команда": "npx",
+"Args": [
+"-y",
+"@ModelContextProtocol/Server-GitHub"
+],
+"Транспорт": "stdio",
+"включено": правда,
+«Описание»: «Интеграция GitHub API»,
+"env": {
+"Github_token": "your_github_token_here"
 }
-```
+}
+}
+}
+`` `
 
-### Docker Compose 配置
+### Docker Compose Configuration
 
-在 `docker-compose.yml` 中配置 MCP 服务：
+Настройте службу MCP в `docker-compose.yml`:
 
-```yaml
+`` `yaml
 ...
-services:
-  backend:
-    image: simpleyyt/manus-backend
-    volumes:
-      - ./mcp.json:/etc/mcp.json  # 挂载 MCP 配置文件
-      - ...
-    environment:
-      # MCP 配置文件路径
-      - MCP_CONFIG_PATH=/etc/mcp.json
+услуги:
+Бэкэнд:
+Изображение: Simpleyt/Anker-Backend
+Тома:
+- ./mcp.json:/etc/mcp.json # Установить файл конфигурации MCP
+- ...
+среда:
+# Путь файла конфигурации MCP
+- mcp_config_path =/etc/mcp.json
 ...
-```
+`` `
 
-## 更多资源
+## больше ресурсов
 
-- [MCP 官方文档](https://modelcontextprotocol.io/)
-- [MCP 服务器列表](https://github.com/modelcontextprotocol/servers)
+- [Официальный документ MCP] (https://modelcontextprotocol.io/)
+- [список серверов MCP] (https://github.com/modelcontextprotocol/servers)

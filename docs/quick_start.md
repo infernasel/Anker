@@ -1,182 +1,182 @@
-# 🚀 快速上手
+# 🚀 Начните быстро
 
-## 环境准备
+## подготовка к окружающей среде
 
-本项目主要依赖Docker进行开发与部署，需要安装较新版本的Docker：
+Этот проект в основном опирается на Docker для разработки и развертывания, и требует установки более новой версии Docker:
 
- * Docker 20.10+
- * Docker Compose
+* Docker 20.10+
+* Docker Compose
 
-模型能力要求：
+Требования к возможностям модели:
 
- * 兼容 OpenAI 接口
- * 支持 FunctionCall
- * 支持 Json Format 输出
+* Совместим с интерфейсом OpenAI
+* Поддержка FunctionCall
+* Поддержка вывода формата JSON
 
-推荐使用 Deepseek 与 ChatGPT 模型。
+Рекомендуются модели DeepSeek и CHATGPT.
 
 
-## Docker 安装
+## Установка Docker
 
-### Windows & Mac 系统
+### Windows & Mac Systems
 
-按照官方要求安装 Docker Desktop ：https://docs.docker.com/desktop/
+Установите Docker Desktop в соответствии с официальными требованиями: https://docs.docker.com/desktop/
 
-### Linux 系统
+### Linux System
 
-按照官方要求安装 Docker Engine：https://docs.docker.com/engine/
+Установите Docker Engine в соответствии с официальными требованиями: https://docs.docker.com/engine/
 
-## 部署
+## развертывание
 
-使用Docker Compose进行部署，需要修改`API_BASE`与`API_KEY`环境变量：
+Чтобы развернуть с помощью Docker Compose, вам необходимо изменить переменные среды api_base` и `api_key`.
 
-<!-- docker-compose-example.yml -->
-```yaml
-services:
-  frontend:
-    image: simpleyyt/manus-frontend
-    ports:
-      - "5173:80"
-    depends_on:
-      - backend
-    restart: unless-stopped
-    networks:
-      - manus-network
-    environment:
-      - BACKEND_URL=http://backend:8000
+<!-Docker-Compose-Example.yml->
+`` `yaml
+услуги:
+внешний интерфейс:
+Изображение: Simpleyyt/Anker-Fontend
+Порты:
+- "5173: 80"
+зависит_on:
+- Бэкэнд
+Перезагрузите: если не остановиться
+Сети:
+- Anker-Network
+среда:
+- backend_url = http: // Backend: 8000
 
-  backend:
-    image: simpleyyt/manus-backend
-    depends_on:
-      - sandbox
-    restart: unless-stopped
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-      #- ./mcp.json:/etc/mcp.json # Mount MCP servers directory
-    networks:
-      - manus-network
-    environment:
-      # OpenAI API base URL
-      - API_BASE=https://api.openai.com/v1
-      # OpenAI API key, replace with your own
-      - API_KEY=sk-xxxx
-      # LLM model name
-      - MODEL_NAME=gpt-4o
-      # LLM temperature parameter, controls randomness
-      - TEMPERATURE=0.7
-      # Maximum tokens for LLM response
-      - MAX_TOKENS=2000
+Бэкэнд:
+Изображение: Simpleyt/Anker-Backend
+зависит_on:
+- Песочница
+Перезагрузите: если не остановиться
+Тома:
+- /var/run/docker.sock:/var/run/docker.sock:ro
+#- ./mcp.json:/etc/mcp.json # каталог Mount MCP Servers
+Сети:
+- Anker-Network
+среда:
+# URL -адрес базы API OpenAI
+- api_base = https: //api.openai.com/v1
+# Openai api -ключ, замените своим собственным
+- api_key = sk-xxxx
+# Название модели LLM
+- MODEL_NAME = GPT-4O
+# Параметр температуры LLM, контролирует случайность
+- Температура = 0,7
+# Максимальные жетоны для ответа LLM
+- max_tokens = 2000
 
-      # MongoDB connection URI
-      #- MONGODB_URI=mongodb://mongodb:27017
-      # MongoDB database name
-      #- MONGODB_DATABASE=manus
-      # MongoDB username (optional)
-      #- MONGODB_USERNAME=
-      # MongoDB password (optional)
-      #- MONGODB_PASSWORD=
+# Mongodb connection uri
+#- mongodb_uri = mongodb: // mongodb: 27017
+# Имя базы данных MongoDB
+#- mongodb_database = anker
+# Mongodb имя пользователя (необязательно)
+#- mongodb_username =
+# Пароль mongodb (необязательно)
+#- mongodb_password =
 
-      # Redis server hostname
-      #- REDIS_HOST=redis
-      # Redis server port
-      #- REDIS_PORT=6379
-      # Redis database number
-      #- REDIS_DB=0
-      # Redis password (optional)
-      #- REDIS_PASSWORD=
+# Redis Server HostName
+#- redis_host = redis
+# Порт сервера Redis
+#- redis_port = 6379
+# Номер базы данных Redis
+#- redis_db = 0
+# Redis Password (необязательно)
+#- redis_password =
 
-      # Sandbox server address (optional)
-      #- SANDBOX_ADDRESS=
-      # Docker image used for the sandbox
-      - SANDBOX_IMAGE=simpleyyt/manus-sandbox
-      # Prefix for sandbox container names
-      - SANDBOX_NAME_PREFIX=sandbox
-      # Time-to-live for sandbox containers in minutes
-      - SANDBOX_TTL_MINUTES=30
-      # Docker network for sandbox containers
-      - SANDBOX_NETWORK=manus-network
-      # Chrome browser arguments for sandbox (optional)
-      #- SANDBOX_CHROME_ARGS=
-      # HTTPS proxy for sandbox (optional)
-      #- SANDBOX_HTTPS_PROXY=
-      # HTTP proxy for sandbox (optional)
-      #- SANDBOX_HTTP_PROXY=
-      # No proxy hosts for sandbox (optional)
-      #- SANDBOX_NO_PROXY=
-      
-      # Search engine configuration
-      # Options: baidu, google, bing
-      - SEARCH_PROVIDER=baidu
+# Адрес сервера Sandbox (необязательно)
+#- Sandbox_address =
+# Изображение Docker, используемое для песочницы
+- Sandbox_image = Simpleyyt/Anker-Sandbox
+# Префикс для названий контейнеров из песочницы
+- Sandbox_Name_prefix = Sandbox
+# Время пройти для контейнеров из песочниц за считанные минуты
+- Sandbox_ttl_minutes = 30
+# Docker Network для контейнеров из песочницы
+- Sandbox_network = Anker-Network
+# Chrome Browser аргументы для песочницы (необязательно)
+#- Sandbox_chrome_args =
+# Https proxy для песочницы (необязательно)
+#- sandbox_https_proxy =
+# Http -прокси для песочницы (необязательно)
+#- Sandbox_http_proxy =
+# Нет прокси -хостов для песочницы (необязательно)
+#- Sandbox_no_proxy =
 
-      # Google search configuration, only used when SEARCH_PROVIDER=google
-      #- GOOGLE_SEARCH_API_KEY=
-      #- GOOGLE_SEARCH_ENGINE_ID=
+# Конфигурация поисковой системы
+# Параметры: Baidu, Google, Bing
+- search_provider = baidu
 
-      # Auth configuration
-      # Options: password, none, local
-      - AUTH_PROVIDER=password
+# Конфигурация поиска Google, используемая только при search_provider = Google
+#- Google_search_api_key =
+#- Google_Search_Engine_id =
 
-      # Password auth configuration, only used when AUTH_PROVIDER=password
-      - PASSWORD_SALT=
-      - PASSWORD_HASH_ROUNDS=10
-      - PASSWORD_HASH_ALGORITHM=pbkdf2_sha256
+# Конфигурация автозаправления
+# Параметры: пароль, нет, локальный
+- auth_provider = пароль
 
-      # Local auth configuration, only used when AUTH_PROVIDER=local
-      #- LOCAL_AUTH_EMAIL=admin@example.com
-      #- LOCAL_AUTH_PASSWORD=admin
+# Конфигурация авторов пароля, используемая только при auth_provider = пароль
+- password_salt =
+- password_hash_rounds = 10
+- password_hash_algorithm = pbkdf2_sha256
 
-      # JWT configuration
-      - JWT_SECRET_KEY=your-secret-key-here
-      - JWT_ALGORITHM=HS256
-      - JWT_ACCESS_TOKEN_EXPIRE_MINUTES=30
-      - JWT_REFRESH_TOKEN_EXPIRE_DAYS=7
+# Локальная конфигурация автоза. Используется только при auth_provider = local
+#- local_auth_email=admin@example.com
+#- local_auth_password = admin
 
-      # MCP configuration file path
-      #- MCP_CONFIG_PATH=/etc/mcp.json
+# Jwt configuration
+-jwt_secret_key = your-secret-key-here
+- jwt_algorithm = hs256
+- jwt_access_token_expire_minutes = 30
+- jwt_refresh_token_expire_days = 7
 
-      # Application log level
-      - LOG_LEVEL=INFO
+# Путь файла конфигурации MCP
+#- mcp_config_path =/etc/mcp.json
 
-  sandbox:
-    image: simpleyyt/manus-sandbox
-    command: /bin/sh -c "exit 0"  # prevent sandbox from starting, ensure image is pulled
-    restart: "no"
-    networks:
-      - manus-network
+# Уровень журнала приложений
+- log_level = info
 
-  mongodb:
-    image: mongo:7.0
-    volumes:
-      - mongodb_data:/data/db
-    restart: unless-stopped
-    #ports:
-    #  - "27017:27017"
-    networks:
-      - manus-network
+Песочница:
+Изображение: Simpleyyt/Anker-Sandbox
+Команда: /bin /sh -c "exit 0" # предотвратить запуск песочницы, убедитесь, что изображение вытянуто
+перезапуск: "нет"
+Сети:
+- Anker-Network
 
-  redis:
-    image: redis:7.0
-    restart: unless-stopped
-    networks:
-      - manus-network
+mongodb:
+Изображение: Монго: 7.0
+Тома:
+- mongodb_data:/data/db
+Перезагрузите: если не остановиться
+#ports:
+# - "27017: 27017"
+Сети:
+- Anker-Network
 
-volumes:
-  mongodb_data:
-    name: manus-mongodb-data
+Redis:
+Изображение: Redis: 7.0
+Перезагрузите: если не остановиться
+Сети:
+- Anker-Network
 
-networks:
-  manus-network:
-    name: manus-network
-    driver: bridge
-```
-<!-- /docker-compose-example.yml -->
+Тома:
+mongodb_data:
+Имя: Anker-Mongodb-Data
 
-保存成`docker-compose.yml`文件，并运行：
+Сети:
+Anker-Network:
+Имя: Anker-Network
+Водитель: мост
+`` `
+<!-/докер-compose-example.yml->
 
-```bash
-docker compose up -d
-```
+Сохраните его в файл `docker-compose.yml` и запустите:
 
-> 注意：如果提示`sandbox-1 exited with code 0`，这是正常的，这是为了让 sandbox 镜像成功拉取到本地。
+`` `bash
+Docker Compose -D
+`` `
 
-打开浏览器访问 <http://localhost:5173> 即可访问 Manus。
+> Примечание. Если подсказка `Sandbox-1, выходящая из кода 0`, является нормальной, это позволяет успешно вытащить изображение песочницы локально.
+
+Откройте браузер и посетите <http: // localhost: 5173>, чтобы получить доступ к Anker.

@@ -15,7 +15,7 @@ class Settings(BaseSettings):
     
     # MongoDB configuration
     mongodb_uri: str = "mongodb://mongodb:27017"
-    mongodb_database: str = "manus"
+    mongodb_database: str = "anker"
     mongodb_username: str | None = None
     mongodb_password: str | None = None
     
